@@ -101,7 +101,7 @@ const theme = createMuiTheme({
 });
 
 const App = () => {
-    const [city, setCity] = useState("Ranchi");
+    const [city, setCity] = useState("Rourkela");
     const [error, setError] = useState(null);
     const [currentWeather, setCurrentWeather] = useState(null);
     const [forecast, setForecast] = useState([]);

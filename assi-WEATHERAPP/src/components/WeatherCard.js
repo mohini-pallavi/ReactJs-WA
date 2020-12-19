@@ -1,17 +1,14 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import {
-    Card,
-    CardContent,
-    CardHeader,
-    CardMedia,
-    Divider,
-    Typography,
+    Card
+    
 } from "@material-ui/core";
 
-import Forecast from "./Forecast";
-import WeatherCardSubheader from "./WeatherCardSubheader";
-import WeatherCardSubHeader from "./WeatherCardSubheader";
+import WeatherCardHeader from "./CardHeader"
+import WeatherCardContent from "./CardContent"
+
+
 
 const useStyles = makeStyles((theme) => ({
     atmospheric: {
@@ -42,7 +39,7 @@ const WeatherCard = props => {
 
     return (
         <Card className={classes.card}>
-            <WeatherCardSubHeader
+            <WeatherCardHeader
             currentWeather={currentWeather}/>
             <WeatherCardContent
             currentWeather={currentWeather}

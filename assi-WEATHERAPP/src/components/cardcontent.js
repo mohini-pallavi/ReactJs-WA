@@ -1,16 +1,16 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import {
-    Card,
+    
     CardContent,
-    CardHeader,
+    
     CardMedia,
     Divider,
     Typography,
 } from "@material-ui/core";
 
 import Forecast from "./Forecast";
-import WeatherCardSubheader from "./WeatherCardSubheader";
+
 
 const useStyles = makeStyles((theme) => ({
     atmospheric: {
