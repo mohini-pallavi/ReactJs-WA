@@ -79,20 +79,6 @@ const getForecast = (city) =>
         });
 
 //NOTE: get the place data from latitude & longitude using google geocode API
-const getLocation = (lat, long) => 
-    fetch (
-        `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${long}&key=${process.env.REACT_APP_GOOGLE_API_KEY}`
-    )
-    .then(res => handleResponse(res))
-    .then(result => {
-        if (Object.entries(result).length) {
-            if (result && result.status === 'REQUEST_DENIED') {
-                throw new Error(result.error_message);
-            } else {
-                return result;
-            }
-        }
-    });
 
 const theme = createMuiTheme({
     typography: {
@@ -136,7 +122,12 @@ const App = () => {
             .catch(err => setError(err.message));
 
         //NOTE: using HTML 5 navigator API for location access
-        if (navigator.geolocation) { //NOTE: Checking if navigator API supported by the browser
+        if (navigator.geolocation) { 
+            navigator.geolocation.getCurrentPosition(function(position){
+                let lat=position.coords.latitude;
+                let long=position.coords.longitude;
+                getLocation(lat,long);
+            });//NOTE: Checking if navigator API supported by the browser
             //NOTE: get the location from navigator
             //NOTE: call the getLocation(latitude, longitude);
             //NOTE: in getLocation.then set the city using `setCity(data.results[0].address_components[2].long_name)` exactly as it is & setError(null)
@@ -145,6 +136,26 @@ const App = () => {
             setError("Geolocation is not supported by this browser.");
         }
     }, [city]);
+    const getLocation = (lat, long) => 
+    fetch (
+        `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${long}&key=${process.env.REACT_APP_GOOGLE_API_KEY}`
+    )
+    .then(res => handleResponse(res))
+    .then(result => {
+        if (Object.entries(result).length) {
+            if (result && result.status === 'REQUEST_DENIED') {
+                throw new Error(result.error_message);
+            } else {
+                return result;
+            }
+        }
+    })
+    .then((data) => {
+        setCity(data.results[0].address_components[2].long_name);
+        setError(null);
+    })
+    .catch((err) => setError(err.message));
+
 
     if (
         (currentWeather && Object.keys(currentWeather).length) ||
