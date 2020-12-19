@@ -31,6 +31,15 @@ const useStyles = makeStyles((theme) => ({
         color: "#673ab7",
     },
 }));
+const WeatherCardContent = props => {
+    const classes = useStyles();
+    const humidity ="wi wi-humidity";
+    const strongWind="wi wi-strong-wind";
+    const{
+        currentWeather , forecast , icon , recommendation } =props;
+
+    
+return(
 <CardContent>
                 <CardMedia
                     className={`${icon} ${classes.wi}`}
@@ -72,3 +81,5 @@ const useStyles = makeStyles((theme) => ({
                 <Divider variant="middle" />
                 <Forecast forecast={forecast} />
             </CardContent>
+)}
+export default WeatherCardContent;
